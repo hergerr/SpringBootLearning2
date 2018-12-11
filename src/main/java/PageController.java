@@ -35,4 +35,27 @@ public class PageController {
         }
         return sb.toString();
     }
+
+    @RequestMapping("/db2")
+    @ResponseBody
+    public String testMethod2() {
+        StringBuilder response = new StringBuilder();
+
+        response.append("Tasks with done set to true:<br>");
+        for(Task i: taskRepository.findByDone(true)) {
+            response.append(i).append("<br>");
+        }
+
+        response.append("Tasks with done set to false:<br>");
+        for(Task i: taskRepository.findByDone(false)) {
+            response.append(i).append("<br>");
+        }
+
+        response.append("Tasks with \"Do\" in description:<br>");
+        for(Task i: taskRepository.getByDescriptionLike("Do")) {
+            response.append(i).append("<br>");
+        }
+
+        return response.toString();
+    }
 }
